@@ -87,13 +87,21 @@
 
     <div id="heart" class="hidden heart">❤️</div>
 
+    <div id="instantMsg" class="hidden fade">
+      <h2>
+        I know you said yes, but I will ask you to be mine for the rest of my
+        life.
+      </h2>
+    </div>
+
     <div id="calendarMsg" class="hidden fade">
       <h2>📅 Block out February 14th, 2026 at 4:00 PM</h2>
     </div>
 
     <div id="countdownMsg" class="hidden fade">
       <h2>
-        This message will self-destruct in <span id="count">10</span> seconds
+        This message will self-destruct in <span id="count">8</span> seconds
+        <span>(don’t exit yet see what happens next)</span>
       </h2>
     </div>
 
@@ -135,12 +143,10 @@
         noBtn.style.display = "none";
 
         document.getElementById("heart").classList.remove("hidden");
+        document.getElementById("instantMsg").classList.remove("hidden");
+        document.getElementById("calendarMsg").classList.remove("hidden");
 
-        setTimeout(() => {
-          document.getElementById("calendarMsg").classList.remove("hidden");
-        }, 5000);
-
-        setTimeout(startCountdown, 25000);
+        setTimeout(startCountdown, 3000);
       });
 
       function startCountdown() {
@@ -148,7 +154,7 @@
         const countSpan = document.getElementById("count");
         countdownMsg.classList.remove("hidden");
 
-        let count = 10;
+        let count = 8;
         const timer = setInterval(() => {
           count -= 1;
           countSpan.textContent = count;
