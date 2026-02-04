@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Forever Valentine</title>
+
+    <style>
+      body {
+        background: radial-gradient(circle at top, #1a1a1a, #000);
+        color: #fff;
+        font-family: Arial, sans-serif;
+        text-align: center;
+        padding: 40px 20px;
+        overflow: hidden;
+      }
+
+      h1 {
+        color: #ff4d6d;
+        margin-bottom: 20px;
+      }
+
+      button {
+        padding: 14px 22px;
+        font-size: 18px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        margin: 10px;
+      }
+
+      #yesBtn {
+        background: #ff4d6d;
+        color: white;
+        position: relative;
+        z-index: 2;
+      }
+
+      #noBtn {
+        position: absolute;
+        background: #555;
+        color: white;
+        z-index: 2;
+      }
+
+      .hidden {
+        display: none;
+      }
+
+      .fade {
+        animation: fadeIn 2.5s ease forwards;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      .heart {
+        font-size: 80px;
+        animation: pulse 1.5s infinite;
+      }
+
+      @keyframes pulse {
+        0% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.2);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>💘 Will you be my forever Valentine? 💘</h1>
+
+    <button id="yesBtn" type="button">Yes ❤️</button>
+    <button id="noBtn" type="button">No</button>
+
+    <div id="heart" class="hidden heart">❤️</div>
+
+    <div id="calendarMsg" class="hidden fade">
+      <h2>📅 Block out February 14th, 2026 at 4:00 PM</h2>
+    </div>
+
+    <div id="countdownMsg" class="hidden fade">
+      <h2>
+        This message will self-destruct in <span id="count">10</span> seconds
+      </h2>
+    </div>
+
+    <div id="finalMsg" class="hidden fade">
+      <h2>
+        I can’t wait to marry you on<br />
+        <strong>December 31st, 2026</strong><br />
+        and make you <strong>Mrs. Pratt</strong> ❤️
+      </h2>
+    </div>
+
+    <script>
+      const noBtn = document.getElementById("noBtn");
+      const yesBtn = document.getElementById("yesBtn");
+
+      const positionNoButton = () => {
+        const padding = 20;
+        const buttonWidth = noBtn.offsetWidth || 100;
+        const buttonHeight = noBtn.offsetHeight || 50;
+        const maxX = window.innerWidth - buttonWidth - padding;
+        const maxY = window.innerHeight - buttonHeight - padding;
+        const x = Math.random() * Math.max(maxX, padding);
+        const y = Math.random() * Math.max(maxY, padding);
+        noBtn.style.left = `${x}px`;
+        noBtn.style.top = `${y}px`;
+      };
+
+      positionNoButton();
+
+      const moveNo = () => {
+        positionNoButton();
+      };
+
+      noBtn.addEventListener("mouseover", moveNo);
+      noBtn.addEventListener("click", moveNo);
+
+      yesBtn.addEventListener("click", () => {
+        yesBtn.style.display = "none";
+        noBtn.style.display = "none";
+
+        document.getElementById("heart").classList.remove("hidden");
+
+        setTimeout(() => {
+          document.getElementById("calendarMsg").classList.remove("hidden");
+        }, 5000);
+
+        setTimeout(startCountdown, 25000);
+      });
+
+      function startCountdown() {
+        const countdownMsg = document.getElementById("countdownMsg");
+        const countSpan = document.getElementById("count");
+        countdownMsg.classList.remove("hidden");
+
+        let count = 10;
+        const timer = setInterval(() => {
+          count -= 1;
+          countSpan.textContent = count;
+
+          if (count === 0) {
+            clearInterval(timer);
+            countdownMsg.classList.add("hidden");
+            document.getElementById("finalMsg").classList.remove("hidden");
+          }
+        }, 1000);
+      }
+
+      window.addEventListener("resize", positionNoButton);
+    </script>
+  </body>
+</html>
